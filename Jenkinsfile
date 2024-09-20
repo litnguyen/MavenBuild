@@ -1,5 +1,9 @@
 pipeline {
 	agent any
+	environment {
+        MAVEN_HOME = '/opt/apache-maven' // Replace with your Maven installation path
+        PATH = "${MAVEN_HOME}/bin:${env.PATH}"
+    }
 	
 	stages{
 		stage('Checkout Code'){
@@ -10,7 +14,7 @@ pipeline {
 	
 	stage('Build'){
 		steps {
-        sh "mvn clean install -Dmaven.test.skip=true"  
+        sh "${MAVEN_HOME}/bin/mvn clean install -Dmaven.test.skip=true"  
 		}   
 	}
 	
