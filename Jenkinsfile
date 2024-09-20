@@ -9,10 +9,9 @@ pipeline {
 			}
 	
 	stage('Build'){
-		steps {
-			withMaven(maven: 'maven3') {
-				sh "mvn clean install -Dmaven.test.skip=true"
-			}
+		steps{
+			bat "mvn clean install -Dmaven.test.skip=true"
+		}
 	}
 	
 	stage('Archive Artifact'){
@@ -23,7 +22,7 @@ pipeline {
 	
 	stage('deployment'){
 		steps{
-		deploy adapters: [tomcat(url: 'http://http://54.179.71.80:8080/', 
+		deploy adapters: [tomcat(url: 'http://54.179.71.80:8080/', 
                               credentialsId: 'TomcatCreds')], 
                      war: 'target/*.war',
                      contextPath: 'app'
@@ -39,7 +38,6 @@ pipeline {
 			to: "khangnguyenchi194@gmail.com"
 		)
 		}
-	}
 	}
 	}
 }
