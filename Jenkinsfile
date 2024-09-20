@@ -9,9 +9,10 @@ pipeline {
 			}
 	
 	stage('Build'){
-		steps{
-			sh "mvn clean install -Dmaven.test.skip=true"
-		}
+		steps {
+			withMaven(maven: 'maven3') {
+				sh "mvn clean install -Dmaven.test.skip=true"
+			}
 	}
 	
 	stage('Archive Artifact'){
